@@ -1,3 +1,9 @@
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/// Tutorial: Get started with Razor Pages in ASP.NET Core
+/// https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-8.0&tabs=visual-studio
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,14 +19,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
+//app.UseStaticFiles(); // Serve static files (e.g., CSS, JavaScript, images)
+app.UseRouting(); // Adds route matching to the middleware pipeline
 
-app.UseRouting();
-
-app.UseAuthorization();
+app.UseAuthorization(); // Authorizes a user to access secure resources (not used in this example app, could be removed)
 
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
 
-app.Run();
+app.Run(); // Run the application
