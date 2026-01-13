@@ -1,13 +1,18 @@
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /// Tutorial: Get started with Razor Pages in ASP.NET Core
 /// https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-8.0&tabs=visual-studio
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using _01_07_2025_tutorial_razor_pages.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<_01_07_2025_tutorial_razor_pagesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("_01_07_2025_tutorial_razor_pagesContext") ?? throw new InvalidOperationException("Connection string '_01_07_2025_tutorial_razor_pagesContext' not found.")));
 
 var app = builder.Build();
 
