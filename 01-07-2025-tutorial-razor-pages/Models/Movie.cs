@@ -1,13 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace _01_07_2025_tutorial_razor_pages.Models;
 
 public class Movie
 {
     public int Id { get; set; }
-    public string? Title { get; set; } // Question mark indicates nullable property
+    public string? Title { get; set; } = string.Empty; // Question mark indicates nullable property
+
+    [Display(Name = "Release Date")]
     [DataType(DataType.Date)]
     public DateTime ReleaseDate { get; set; }
-    public string? Genre { get; set; }
+    public string? Genre { get; set; } = string.Empty;
+
+    [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 }
