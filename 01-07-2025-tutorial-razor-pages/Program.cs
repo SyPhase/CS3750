@@ -1,11 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 /// Tutorial: Get started with Razor Pages in ASP.NET Core
 /// https://learn.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-8.0&tabs=visual-studio
+/// Note instances of "RazorPagesMovieContext" replaced with "_01_07_2025_tutorial_razor_pagesContext"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using _01_07_2025_tutorial_razor_pages.Data;
+using _01_07_2025_tutorial_razor_pages.Models;
+using RazorPagesMovie.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,13 +19,20 @@ builder.Services.AddDbContext<_01_07_2025_tutorial_razor_pagesContext>(options =
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    var services = scope.ServiceProvider;
+
+    SeedData.Initialize(services);
 }
+
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
 app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
 //app.UseStaticFiles(); // Serve static files (e.g., CSS, JavaScript, images)
