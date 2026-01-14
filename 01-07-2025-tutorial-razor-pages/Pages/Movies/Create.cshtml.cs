@@ -16,7 +16,7 @@ namespace _01_07_2025_tutorial_razor_pages.Pages.Movies
 
         public CreateModel(_01_07_2025_tutorial_razor_pages.Data._01_07_2025_tutorial_razor_pagesContext context)
         {
-            _context = context;
+            _context = context; // in-memory database context is injected here
         }
 
         public IActionResult OnGet()
@@ -35,8 +35,9 @@ namespace _01_07_2025_tutorial_razor_pages.Pages.Movies
                 return Page();
             }
 
-            _context.Movie.Add(Movie);
-            await _context.SaveChangesAsync();
+            // TODO : Important to understand this part, this is where the database interaction happens
+            _context.Movie.Add(Movie); // This is where our movie is added to the database context (changing context)
+            await _context.SaveChangesAsync(); // Finds all changes made in the context and saves them to the database (committing changes)
 
             return RedirectToPage("./Index");
         }
