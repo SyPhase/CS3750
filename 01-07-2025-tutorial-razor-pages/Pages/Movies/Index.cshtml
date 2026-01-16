@@ -1,4 +1,5 @@
 ﻿@page
+<!-- note: page "{searchString?}" Allows optional search string parameter as route data (a URL segment) instead of as a query string value -->
 @model _01_07_2025_tutorial_razor_pages.Pages.Movies.IndexModel
 
 @{
@@ -10,6 +11,17 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+<form>
+    <p>
+        <select asp-for="MovieGenre" asp-items="Model.Genres">
+            <option value="">All</option>
+        </select>
+        <label>Title: <input type="text" asp-for="SearchString" /></label>
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using _01_07_2025_tutorial_razor_pages.Data;
+using _01_07_2025_tutorial_razor_pages.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using _01_07_2025_tutorial_razor_pages.Data;
-using _01_07_2025_tutorial_razor_pages.Models;
 
 namespace _01_07_2025_tutorial_razor_pages.Pages.Movies;
 
@@ -21,8 +22,38 @@ public class IndexModel : PageModel
 
     public IList<Movie> Movie { get;set; } = default!;
 
+    [BindProperty(SupportsGet = true)]
+    public string? SearchString { get; set; }
+
+    public SelectList? Genres { get; set; } // SelectList is used for dropdown lists in Razor Pages, may require using Microsoft.AspNetCore.Mvc.Rendering;
+
+    [BindProperty(SupportsGet = true)]
+    public string? MovieGenre { get; set; }
+
     public async Task OnGetAsync()
     {
-        Movie = await _context.Movie.ToListAsync();
+        // <snippet_search_linqQuery>
+        IQueryable<string> genreQuery = from m in _context.Movie
+                                        orderby m.Genre
+                                        select m.Genre;
+        // </snippet_search_linqQuery>
+
+        var movies = from m in _context.Movie
+                     select m;
+
+        if (!string.IsNullOrEmpty(SearchString))
+        {
+            movies = movies.Where(s => s.Title.Contains(SearchString));
+        }
+
+        if (!string.IsNullOrEmpty(MovieGenre))
+        {
+            movies = movies.Where(x => x.Genre == MovieGenre);
+        }
+
+        // <snippet_search_selectList>
+        Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
+        // </snippet_search_selectList>
+        Movie = await movies.ToListAsync();
     }
 }
