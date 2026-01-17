@@ -1,0 +1,76 @@
+﻿@page
+@model _01_07_2025_tutorial_razor_pages.Pages.Users.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<form>
+    <p>
+        <label>Email: <input type="text" asp-for="SearchEmail" /></label>
+    </p>
+    <p>
+        <label>Password: <input type="text" asp-for="SearchPassword" /></label>
+    </p>
+    <p>
+        <input type="submit" value="Log in" />
+    </p>
+</form>
+
+<p>
+    <a asp-page="Register">Register New Account</a>
+</p>
+
+<!-- TODO : Remove this for production -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].BirthDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+@foreach (var item in Model.User)
+{
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

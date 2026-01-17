@@ -20,53 +20,101 @@ public static class SeedData
         {
             if (context == null || context.Movie == null)
             {
-                throw new ArgumentNullException("Null RazorPagesMovieContext");
+                throw new ArgumentNullException("Null RazorPagesMovieContext: Movie");
             }
 
             // Look for any movies.
-            if (context.Movie.Any())
+            if (!context.Movie.Any())
             {
-                return;   // DB has been seeded
+                context.Movie.AddRange(
+                    new Movie
+                    {
+                        Title = "When Harry Met Sally",
+                        ReleaseDate = DateTime.Parse("1989-2-12"),
+                        Genre = "Romantic Comedy",
+                        Price = 7.99M,
+                        Rating = "R"
+                    },
+
+                    new Movie
+                    {
+                        Title = "Ghostbusters ",
+                        ReleaseDate = DateTime.Parse("1984-3-13"),
+                        Genre = "Comedy",
+                        Price = 8.99M,
+                        Rating = "G"
+                    },
+
+                    new Movie
+                    {
+                        Title = "Ghostbusters 2",
+                        ReleaseDate = DateTime.Parse("1986-2-23"),
+                        Genre = "Comedy",
+                        Price = 9.99M,
+                        Rating = "G"
+                    },
+
+                    new Movie
+                    {
+                        Title = "Rio Bravo",
+                        ReleaseDate = DateTime.Parse("1959-4-15"),
+                        Genre = "Western",
+                        Price = 3.99M,
+                        Rating = "NA"
+                    }
+                );
+                context.SaveChanges();
             }
 
-            context.Movie.AddRange(
-                new Movie
-                {
-                    Title = "When Harry Met Sally",
-                    ReleaseDate = DateTime.Parse("1989-2-12"),
-                    Genre = "Romantic Comedy",
-                    Price = 7.99M,
-                    Rating = "R"
-                },
 
-                new Movie
-                {
-                    Title = "Ghostbusters ",
-                    ReleaseDate = DateTime.Parse("1984-3-13"),
-                    Genre = "Comedy",
-                    Price = 8.99M,
-                    Rating = "G"
-                },
+            // Seed User data next
+            if (context == null || context.User == null)
+            {
+                throw new ArgumentNullException("Null RazorPagesMovieContext: User");
+            }
 
-                new Movie
-                {
-                    Title = "Ghostbusters 2",
-                    ReleaseDate = DateTime.Parse("1986-2-23"),
-                    Genre = "Comedy",
-                    Price = 9.99M,
-                    Rating = "G"
-                },
+            // Look for any movies.
+            if (!context.User.Any())
+            {
+                context.User.AddRange(
+                    new User
+                    {
+                        Email = "admin@gmail.com",
+                        Password = "admin",
+                        FirstName = "admin",
+                        LastName = "admin",
+                        BirthDate = DateTime.Parse("1980-1-1")
+                    },
 
-                new Movie
-                {
-                    Title = "Rio Bravo",
-                    ReleaseDate = DateTime.Parse("1959-4-15"),
-                    Genre = "Western",
-                    Price = 3.99M,
-                    Rating = "NA"
-                }
-            );
-            context.SaveChanges();
+                    new User
+                    {
+                        Email = "pork@gmail.com",
+                        Password = "porkman",
+                        FirstName = "Peter",
+                        LastName = "Porkins",
+                        BirthDate = DateTime.Parse("1972-7-21")
+                    },
+
+                    new User
+                    {
+                        Email = "steak@gmail.com",
+                        Password = "steakman",
+                        FirstName = "Steven",
+                        LastName = "Steakins",
+                        BirthDate = DateTime.Parse("1973-8-22")
+                    },
+
+                    new User
+                    {
+                        Email = "poultry@gmail.com",
+                        Password = "poultryman",
+                        FirstName = "Paul",
+                        LastName = "Poultrins",
+                        BirthDate = DateTime.Parse("1974-9-23")
+                    }
+                );
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -5,18 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using _01_07_2025_tutorial_razor_pages.Data;
 using _01_07_2025_tutorial_razor_pages.Models;
 
-namespace _01_07_2025_tutorial_razor_pages.Pages.Movies;
+namespace _01_07_2025_tutorial_razor_pages.Pages.Users;
 
-public class CreateModel : PageModel
+public class RegisterModel : PageModel
 {
     private readonly _01_07_2025_tutorial_razor_pages.Data._01_07_2025_tutorial_razor_pagesContext _context;
 
-    public CreateModel(_01_07_2025_tutorial_razor_pages.Data._01_07_2025_tutorial_razor_pagesContext context)
+    public RegisterModel(_01_07_2025_tutorial_razor_pages.Data._01_07_2025_tutorial_razor_pagesContext context)
     {
-        _context = context; // in-memory database context is injected here
+        _context = context;
     }
 
     public IActionResult OnGet()
@@ -25,8 +26,9 @@ public class CreateModel : PageModel
     }
 
     [BindProperty]
-    public Movie Movie { get; set; } = default!;
+    public User User { get; set; } = default!;
 
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more information, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
@@ -35,10 +37,9 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        // TODO : Important to understand this part, this is where the database interaction happens
-        _context.Movie.Add(Movie); // This is where our movie is added to the database context (changing context)
-        await _context.SaveChangesAsync(); // Finds all changes made in the context and saves them to the database (committing changes)
+        _context.User.Add(User);
+        await _context.SaveChangesAsync();
 
-        return RedirectToPage("./Index");
+        return RedirectToPage("./Login");
     }
 }

@@ -15,5 +15,6 @@ namespace _01_07_2025_tutorial_razor_pages.Data
         }
 
         public DbSet<_01_07_2025_tutorial_razor_pages.Models.Movie> Movie { get; set; } = default!;
+        public DbSet<_01_07_2025_tutorial_razor_pages.Models.User> User { get; set; } = default!;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _01_07_2025_tutorial_razor_pages.Data;
 
@@ -11,9 +12,11 @@ using _01_07_2025_tutorial_razor_pages.Data;
 namespace _01_07_2025_tutorial_razor_pages.Migrations
 {
     [DbContext(typeof(_01_07_2025_tutorial_razor_pagesContext))]
-    partial class _01_07_2025_tutorial_razor_pagesContextModelSnapshot : ModelSnapshot
+    [Migration("20260117050050_Users-Search")]
+    partial class UsersSearch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

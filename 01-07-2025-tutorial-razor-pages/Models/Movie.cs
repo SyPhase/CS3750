@@ -10,7 +10,7 @@ public class Movie
 
     [StringLength(60, MinimumLength = 3)]
     [Required]
-    public string Title { get; set; } = string.Empty; // Question mark indicates nullable property
+    public string Title { get; set; } = string.Empty;
 
     // Value types (like int, float, DateTime) are inherently required and don't need the [Required] attribute.
     [Display(Name = "Release Date")]
@@ -25,7 +25,7 @@ public class Movie
     [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$")] // Note: not optimal for a production system
     [Required]
     [StringLength(30)]
-    public string? Genre { get; set; } = string.Empty;
+    public string? Genre { get; set; } = string.Empty; // Question mark indicates nullable property
 
     [RegularExpression(@"^[A-Z]+[a-zA-Z0-9""'\s-]*$")]
     [StringLength(5)]
